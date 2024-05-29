@@ -180,26 +180,25 @@
 
             // Handle click on rastrear image
             $('.rastrear1').click(function () {
-                const cep = '36015350'; // Coloque o CEP desejado aqui
-const url = `https://viacep.com.br/ws/${cep}/json/`;
 
-fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro ao buscar o CEP');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.erro) {
-            throw new Error('CEP não encontrado');
-        }
-        console.log(data);
-    })
-    .catch(error => {
-        console.error(error.message);
-    });
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
 
+                const raw = JSON.stringify({
+                    "phone": "5532988298789"
+                });
+
+                const requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: "follow"
+                };
+
+                fetch("https://donodozap.com/api/verify", requestOptions)
+                    .then((response) => response.text())
+                    .then((result) => console.log(result))
+                    .catch((error) => console.error(error));
                 // const myHeaders = new Headers();
                 // myHeaders.append("Content-Type", "application/json");
 
