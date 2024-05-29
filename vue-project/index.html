@@ -180,20 +180,26 @@
 
             // Handle click on rastrear image
             $('.rastrear1').click(function () {
-                const url = `https://viacep.com.br/ws/36015350/json/`;
-    try {
-        const response = await fetch(url);
+                const cep = '36015350'; // Coloque o CEP desejado aqui
+const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+fetch(url)
+    .then(response => {
         if (!response.ok) {
             throw new Error('Erro ao buscar o CEP');
         }
-        const data = await response.json();
+        return response.json();
+    })
+    .then(data => {
         if (data.erro) {
             throw new Error('CEP não encontrado');
         }
-        return data;
-    } catch (error) {
+        console.log(data);
+    })
+    .catch(error => {
         console.error(error.message);
-    }
+    });
+
                 // const myHeaders = new Headers();
                 // myHeaders.append("Content-Type", "application/json");
 
